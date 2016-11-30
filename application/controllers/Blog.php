@@ -80,7 +80,7 @@ class Blog extends CI_Controller {
 
 	// add a new comment using given $_PUT
 	public function comment_add() {
-		if(!empty($_POST)) {
+		if(!empty($_GET)) {
 			$this->load->model("Model_MySQL", "mysql");
 			$this->mysql->comment_add($_POST['postid'], $_POST['name'], $_POST['email'], $_POST['website'], $_POST['content'], time());
 
