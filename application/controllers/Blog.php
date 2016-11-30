@@ -19,7 +19,7 @@ class Blog extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
-		$this->load->view('post_view', array('title' => "new post", 'date' => "2984728947249847", 'body' => "blah blah blah gypseys, ahh gypseys, imagine being a gypsey", 'id' => "1", 'comments' => array()));
+		$this->load->view('homepage');
 	}
 
 	// add a new post using given $_PUT

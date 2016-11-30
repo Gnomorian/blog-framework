@@ -53,7 +53,7 @@ class Model_MySQL extends CI_Model {
       'content' => $content,
       'date' => $postid,
     );
-    $this->db->insert('comments', $data)
+    $this->db->insert('comments', $data);
   }
     // remove a comment
   public function comment_delete($id) {
