@@ -19,7 +19,25 @@ class Blog extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
-		$this->load->view('homepage');
+		$this->load->model('Model_MySQL', 'mysql');
+		// get list of latest posts
+		$posts = $this->mysql->get_latest_posts();
+		if(!isset($posts)) {
+			die("No Posts!");
+		}
+
+		// get list of projects
+		$projects = $this->mysql->get_projects();
+		if(!isset($projects)) {
+			die("No Projects!");
+		}
+
+		// get a random quote
+		$quote = $this->mysql->get_random_quote();
+		if(!isset($quote)) {
+			die("No Quote!");
+		}
+		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote));
 	}
 
 	// add a new post using given $_PUT

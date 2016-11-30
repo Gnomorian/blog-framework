@@ -16,8 +16,8 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Header -->
 <header class="w3-container w3-center w3-padding-32">
   <h1><b>William Cameron</b></h1>
-  <p>Great things are done by a series of small things brought together.<br>
-    <span class="w3-tag">-Vincent Van Gogh</span></p>
+  <p><?PHP echo($quote[0]->text);?><br>
+    <span class="w3-tag">-<?PHP echo($quote[0]->person);?></span></p>
 </header>
 
 <!-- Grid -->
@@ -25,51 +25,35 @@ and is wrapped around the whole page content, except for the footer in this exam
 
 <!-- Blog entries -->
 <div class="w3-col l8 s12">
-  <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
-    <img src="/w3images/woods.jpg" alt="Nature" style="width:100%">
-    <div class="w3-container w3-padding-8">
-      <h3><b>TITLE HEADING</b></h3>
-      <h5>Title description, <span class="w3-opacity">April 7, 2014</span></h5>
-    </div>
+<?php
+  if(isset($posts) && !empty($posts)) {
+    foreach ($posts as $post) {
+      $date = date('F j<\s\up>S</\s\up>, Y', $post->date);
+      echo("
+        <div class='w3-card-4 w3-margin w3-white'>
+          <img src='$post->icon' alt='Nature' style='width:100%'>
+          <div class='w3-container w3-padding-8'>
+            <h3><b>$post->title</b></h3>
+            <h5>$post->subtitle, <span class='w3-opacity'>$date</span></h5>
+          </div>
 
-    <div class="w3-container">
-      <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      <div class="w3-row">
-        <div class="w3-col m8 s12">
-          <p><button class="w3-btn w3-padding-large w3-white w3-border w3-hover-border-black"><b>READ MORE &raquo;</b></button></p>
+          <div class='w3-container'>
+            <p>$post->body</p>
+            <div class='w3-row'>
+              <div class='w3-col m8 s12'>
+                <p><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>READ MORE &raquo;</b></button></p>
+              </div>
+              <div class='w3-col m4 w3-hide-small'>
+                <p><span class='w3-padding-large w3-right'><b>Comments &nbsp;</b> <span class='w3-tag'>$post->num_comments  </span></span></p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="w3-col m4 w3-hide-small">
-          <p><span class="w3-padding-large w3-right"><b>Comments &nbsp;</b> <span class="w3-tag">0</span></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr>
-
-  <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
-  <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
-    <div class="w3-container w3-padding-8">
-      <h3><b>BLOG ENTRY</b></h3>
-      <h5>Title description, <span class="w3-opacity">April 2, 2014</span></h5>
-    </div>
-
-    <div class="w3-container">
-      <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      <div class="w3-row">
-        <div class="w3-col m8 s12">
-          <p><button class="w3-btn w3-padding-large w3-white w3-border w3-hover-border-black"><b>READ MORE &raquo;</b></button></p>
-        </div>
-        <div class="w3-col m4 w3-hide-small">
-          <p><span class="w3-padding-large w3-right"><b>Comments &nbsp;</b> <span class="w3-badge">2</span></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- END BLOG ENTRIES -->
+        <hr>
+      ");
+    }
+  }
+?>
 </div>
 
 <!-- Introduction menu -->
@@ -92,31 +76,26 @@ and is wrapped around the whole page content, except for the footer in this exam
   </div><hr>
 
   <!-- Posts -->
+
   <div class="w3-card-2 w3-margin">
     <div class="w3-container w3-padding">
       <h4>My Projects</h4>
     </div>
     <ul class="w3-ul w3-hoverable w3-white">
-      <li class="w3-padding-16">
-        <img src="image/project/gameboy.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">GameBoy Emulator</span><br>
-        <span>A handheld GameBoy emulator powered by a Raspberry PI</span>
-      </li>
-      <li class="w3-padding-16">
-        <img src="image/project/github.png" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Bazxus-Github Clone</span><br>
-        <span>An alternative to github that uses Bazaar instead of Git.</span>
-      </li>
-      <li class="w3-padding-16">
-        <img src="image/project/roster.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Roster Manager</span><br>
-        <span>Program for tracking your staffs breaks so you dont call them when they are not avalable</span>
-      </li>
-      <li class="w3-padding-16 w3-hide-medium w3-hide-small">
-        <img src="image/project/ide.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Wil's IDE</span><br>
-        <span>An IDE to fit my needs.</span>
-      </li>
+
+      <?php
+      if(isset($projects) && !empty($projects)) {
+        foreach ($projects as $project) {
+          echo("
+          <li class='w3-padding-16'>
+            <img src='$project->icon' alt='Image' class='w3-left w3-margin-right' style='width:50px'>
+            <span class='w3-large'>$project->title</span><br>
+            <span>$project->description</span>
+          </li>
+          ");
+        }
+      }
+      ?>
     </ul>
   </div>
   <hr>
@@ -124,7 +103,7 @@ and is wrapped around the whole page content, except for the footer in this exam
   <!-- Labels / tags -->
   <div class="w3-card-2 w3-margin">
     <div class="w3-container w3-padding">
-      <h4>Tags</h4>
+      <h4>Tags - Dont work, placeholder</h4>
     </div>
     <div class="w3-container w3-white">
     <p>

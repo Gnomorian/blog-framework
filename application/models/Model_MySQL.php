@@ -34,9 +34,20 @@ class Model_MySQL extends CI_Model {
     }
     return;
   }
+
+  public function get_latest_posts() {
+    $this->db->order_by('date', 'DESC');
+    $this->db->limit(3);
+    $query = $this->db->get('posts');
+    $result = $query->result();
+    if(!empty($result)) {
+      return $result;
+    }
+  }
   // get all comments for this post
   public function get_comments($postid) {
-    $query = $this->db->get_where('comments', array('post_id' => $postid));
+    /*$query = $this->db->get_where('comments', array('post_id' => $postid));
+    $query->order_by("date", "DESC");*/
     $result = $query->result();
     if(!empty($result)) {
       return $result;
@@ -58,5 +69,20 @@ class Model_MySQL extends CI_Model {
     // remove a comment
   public function comment_delete($id) {
     $this->db->delete('comments', array('id' => $id));
+  }
+    // get a list of all projects and info about them.
+  public function get_projects() {
+    $query = $this->db->get('projects');
+    return $query->result();
+  }
+
+  // QUOTES
+  public function get_random_quote() {
+    $query = $this->db->query("SELECT * FROM quotes ORDER BY RAND() LIMIT 1");
+    $result = $query->result();
+    if(!empty($result)) {
+      return $result;
+    }
+    return;
   }
 }
