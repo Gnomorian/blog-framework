@@ -1,4 +1,4 @@
-<form method="put">
+<form method="post">
     <table>
         <tr>
             <td><label for="title">Title</label></td>

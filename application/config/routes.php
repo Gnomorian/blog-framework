@@ -60,9 +60,8 @@ $route['post/post_delete/(:num)'] = 'blog/post_delete/$1';
 $route['post/(:num)'] = 'blog/post_view/$1';
 
 // add a comment
-$route['comment/comment_add']['PUT'] = 'blog/comment_add';
-// display a form for adding a comment
-$route['comment/comment_add'] = 'blog/comment_add_display';
+$route['comment/comment_add'] = 'blog/comment_add';
+
 // delete a comment
 $route['comment/comment_delete/(:num)'] = 'blog/comment_delete/$1';
 

@@ -1,12 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-echo '<h2>'.$postinfo['title'].'</h2>';
-echo '<em>Posted '.date('F j<\s\up>S</\s\up>, Y', $postinfo['date']).'</em><br/>';
-echo nl2br($postinfo['body']).'<br/>';
-echo '<a href="post_edit.php?id='.$_GET['id'].'">Edit</a> | <a href="post_delete.php?id='.$_GET['id'].'">Delete</a> | <a href="index.php">View All</a>';
+echo '<h2>'.$title.'</h2>';
+echo '<em>Posted '.date('F j<\s\up>S</\s\up>, Y', $date).'</em><br/>';
+echo nl2br($body).'<br/>';
+echo '<a href="post_edit?id='.$id.'">Edit</a> | <a href="post_delete?id='.$id.'">Delete</a> | <a href="/me-profile/index.php>View All</a>';
 
 echo '<hr/>';
+
+/*
 $result = mysql_safe_query('SELECT * FROM comments WHERE post_id=%s ORDER BY date ASC', $_GET['id']);
 echo '<ol id="comments">';
 while($postinfo = mysql_fetch_assoc($result)) {
@@ -18,3 +20,4 @@ while($postinfo = mysql_fetch_assoc($result)) {
     echo '</li>';
 }
 echo '</ol>';
+*/
