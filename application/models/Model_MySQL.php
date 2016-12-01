@@ -9,11 +9,13 @@ class Model_MySQL extends CI_Model {
     parent::__construct();
   }
     // add a blog post
-  public function post_add($title, $body, $date) {
+  public function post_add($title, $body, $date, $subtitle, $icon="image/post/default.jpg") {
     $data = array(
       'title' => $title,
       'body' => $body,
-      'date' => $date
+      'date' => $date,
+      'subtitle' => $subtitle,
+      'icon' => $icon
     );
     $this->db->insert('posts', $data);
   }

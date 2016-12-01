@@ -40,15 +40,24 @@ class Blog extends CI_Controller {
 		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote));
 	}
 
-	// add a new post using given $_PUT
+	// add a new post
 	public function post_add() {
-		if(!empty($_POST)) {
-			$this->load->model('Model_MySQL', 'mysql');
-			$this->mysql->post_add($_POST['title'], $_POST['body'], time());
-		}
 
+		$this->load->model('Model_MySQL', 'mysql');
+
+		if(!empty($_POST)) {
+			//if there is an image
+			if($this->upload_file() == 1) {
+				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], 'image/post/' . basename($_FILES["icon"]["name"]));
+			}
+			else {
+				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle']);
+			}
+		}
+		// get list of projects
+		$projects = $this->mysql->get_projects();
 		// show add post form
-		$this->load->view('post_add');
+		$this->load->view('post_add', array('projects' => $projects));
 	}
 
 	// delete the given post number and its comments
@@ -106,6 +115,50 @@ class Blog extends CI_Controller {
 			exit();
 		}
 		$this->load->view('comment_add');
+	}
+
+	public function upload_file() {
+		$target_dir = "image/post/";
+		$target_file = $target_dir . basename($_FILES["icon"]["name"]);
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		// Check if image file is a actual image or fake image
+		if(isset($_POST["submit"])) {
+		    $check = getimagesize($_FILES["icon"]["tmp_name"]);
+		    if($check !== false) {
+		        $uploadOk = 1;
+		    } else {
+		        echo "File is not an image.";
+		        $uploadOk = 0;
+		    }
+		}
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    echo "Sorry, file already exists.";
+		    $uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["icon"]["size"] > 500000) {
+		    echo "Sorry, your file is too large.";
+		    $uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+		&& $imageFileType != "gif" ) {
+		    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+		    $uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    echo "Sorry, your file was not uploaded.";
+		// if everything is ok, try to upload file
+		} else {
+		    if (move_uploaded_file($_FILES["icon"]["tmp_name"], $target_file)) {
+		        return $uploadOk;
+		    } else {
+		        return $uploadOk;
+		    }
+		}
 	}
 
 }
