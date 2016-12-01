@@ -51,19 +51,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // edit a post
-$route['post/post_edit/(:num)'] = 'blog/post_edit/$1';
+//$route['post/post_edit/(:num)'] = 'blog/post_edit/$1';
 // display a form for adding a post
 $route['post_add'] = 'blog/post_add';
 // delete a post
-$route['post/post_delete/(:num)'] = 'blog/post_delete/$1';
+$route['post_delete/(:num)'] = 'blog/post_delete/$1';
 // view a post and its comments
 $route['post/(:num)'] = 'blog/post_view/$1';
 
 // add a comment
-$route['comment/comment_add'] = 'blog/comment_add';
+//$route['comment/comment_add'] = 'blog/comment_add';
 
 // delete a comment
-$route['comment/comment_delete/(:num)'] = 'blog/comment_delete/$1';
+//$route['comment/comment_delete/(:num)'] = 'blog/comment_delete/$1';
 
 // default page, shows latest posts, login
 $route['default_controller'] = 'blog';
