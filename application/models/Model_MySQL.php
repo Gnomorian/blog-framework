@@ -50,7 +50,7 @@ class Model_MySQL extends CI_Model {
   public function get_comments($postid) {
     /*$query = $this->db->get_where('comments', array('post_id' => $postid));
     $query->order_by("date", "DESC");*/
-    $result = $query->result();
+    //$result = $query->result();
     if(!empty($result)) {
       return $result;
     }
@@ -76,6 +76,15 @@ class Model_MySQL extends CI_Model {
   public function get_projects() {
     $query = $this->db->get('projects');
     return $query->result();
+  }
+
+  public function project_posts($id) {
+    $query = $this->db->get_where('posts', array('project_id' => $id));
+    $result = $query->result();
+    if(!empty($result)) {
+      return $result[0];
+    }
+    return;
   }
 
   // QUOTES

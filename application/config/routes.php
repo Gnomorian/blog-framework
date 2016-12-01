@@ -58,6 +58,9 @@ $route['post_add'] = 'blog/post_add';
 $route['post_delete/(:num)'] = 'blog/post_delete/$1';
 // view a post and its comments
 $route['post/(:num)'] = 'blog/post_view/$1';
+// view a list of posts for a given project.
+$route['project/(:num)'] = 'blog/get_project_posts/$1';
+
 
 // add a comment
 //$route['comment/comment_add'] = 'blog/comment_add';

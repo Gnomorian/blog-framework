@@ -26,18 +26,8 @@ class Blog extends CI_Controller {
 			die("No Posts!");
 		}
 
-		// get list of projects
-		$projects = $this->mysql->get_projects();
-		if(!isset($projects)) {
-			die("No Projects!");
-		}
+		$this->generate_homepage($posts);
 
-		// get a random quote
-		$quote = $this->mysql->get_random_quote();
-		if(!isset($quote)) {
-			die("No Quote!");
-		}
-		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote));
 	}
 
 	// add a new post
@@ -71,6 +61,17 @@ class Blog extends CI_Controller {
 	public function post_edit($num) {
 
 	}
+	// homepage view with all posts for the given project $id=project id
+	public function get_project_posts($id) {
+		$this->load->model('Model_MySQL', 'mysql');
+		// get the post user wants to view
+		$posts = $this->mysql->project_posts($id);
+		if(!isset($post)) {
+			echo("Project $id has no Posts.");
+		}
+
+		$this->generate_homepage($posts);
+	}
 
 	// view the given post number and its comments
 	public function post_view($num) {
@@ -80,19 +81,8 @@ class Blog extends CI_Controller {
 		if(!isset($post)) {
 			echo("No Post with ID: $num");
 		}
-		// get the comments for the post
-		$comments = $this->mysql->get_comments($num);
-		if(!isset($comments)) {
-			echo("No Comments for PostID: $num");
-			return;
-		}
 
-		$this->load->view('post_view', array(
-			'id' => $num,
-			'title' => $post->title,
-			'body' => $post->body,
-			'date' => $post->date
-			));
+		$this->generate_homepage(array($post));
 
 
 	}
@@ -159,6 +149,21 @@ class Blog extends CI_Controller {
 		        return $uploadOk;
 		    }
 		}
+	}
+
+	public function generate_homepage($posts) {
+		// get list of projects
+		$projects = $this->mysql->get_projects();
+		if(!isset($projects)) {
+			die("No Projects!");
+		}
+
+		// get a random quote
+		$quote = $this->mysql->get_random_quote();
+		if(!isset($quote)) {
+			die("No Quote!");
+		}
+		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote));
 	}
 
 }

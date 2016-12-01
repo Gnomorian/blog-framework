@@ -1,0 +1,18 @@
+ - Post edit
+ - Post add
+  - spice up /post_add page
+ - Post delete
+  - /post_delete can only be used when authenticated
+
+ - Comment edit
+ - Comment add
+ - Comment delete
+
+ - Authenticate
+  - add Admin Panel
+  - Add Login page as e3-modal
+  - Authenticated users can see delete button on posts, comments
+
+ - Comments
+  - Comments shown on Read More button
+  - Form for adding new Comments using w3-modal
