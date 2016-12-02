@@ -35,7 +35,10 @@ class Model_MySQL extends CI_Model {
     // $reforms is array('title', 'body', 'date'),
     // if thoes fields exist in the
     // array, they will replace the existing field/
-  public function post_edit($id, $reforms) {}
+  public function post_edit($id, $reforms) {
+    $this->db->where('id', $id);
+    $this->db->update('posts', $reforms);
+  }
   // get a post to view
   public function post_view($id) {
     $query = $this->db->get_where('posts', array('id' => $id), 1);

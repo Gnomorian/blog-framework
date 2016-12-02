@@ -29,13 +29,18 @@ class Blog extends CI_Controller {
 
 	// add a new post
 	public function post_add() {
+		session_start();
+		if(!isset($_SESSION['username'])) {
+			die("You are not a registered user");
+			
+		}
 
 		$this->load->model('Model_MySQL', 'mysql');
 
 		if(!empty($_POST)) {
 			//if there is an image
 			if($this->upload_file() == 1) {
-				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], $_POST['projectid'], 'image/post/' . basename($_FILES["icon"]["name"]));
+				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], $_POST['projectid'], '/image/post/' . basename($_FILES["icon"]["name"]));
 			}
 			else {
 				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], $_POST['projectid']);
@@ -50,19 +55,50 @@ class Blog extends CI_Controller {
 	// delete the given post number and its comments
 	public function post_delete($num) {
 		session_start();
-		if(isset($_SESSION['username'])) {
+		if(!isset($_SESSION['username'])) {
+			die("You are not a registered user");
+			
+		}
+		else {
 			$this->load->model("Model_MySQL", "mysql");
 			$this->mysql->post_delete($num);
 			header('Location: /');
 			exit();
 		}
-		else {
-			die("You are not a registered user");
-		}
 	}
 	// edit the given post number
 	public function post_edit($num) {
-
+		// CHECK IF USER IS LOGGED IN
+		session_start();
+		if(!isset($_SESSION['username'])) {
+			die("You are not a registered user");
+			
+		}
+		$this->load->model('Model_MySQL', 'mysql');
+		// UPDATE POST
+		if(!empty($_POST)) {
+			$reforms = array(
+				'title'=> $_POST['title'],
+				'body'=> $_POST['body'],
+				'subtitle'=> $_POST['title'],
+				'project_id'=> $this->mysql->get_project_id($_POST['projectid']),
+				);
+			//if there is an image
+			if($this->upload_file() == 1) {
+				$reforms['icon'] = '/image/post/' . basename($_FILES["icon"]["name"]);
+			}
+			$this->mysql->post_edit($num, $reforms);
+			echo("<br>Post Updated!<br>");
+		}
+		
+		// GENERATE PAGE
+		
+		// get list of projects
+		$projects = $this->mysql->get_projects();
+		
+		$post = $this->mysql->post_view($num);
+		// show add post form
+		$this->load->view('post_edit', array('projects' => $projects, 'fields' => $post));
 	}
 	// homepage view with all posts for the given project $id=project id
 	public function get_project_posts($id) {

@@ -35,13 +35,13 @@ and is wrapped around the whole page content, except for the footer in this exam
       $editPost = "";
       if(!empty($user)) {
         $deletePost = "<a href='/post_delete/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Post</b></button></a>";
-        $editPost = "<button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Edit Post</b></button>";
+        $editPost = "<a href='/post_edit/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Edit Post</b></button></a>";
       }
       echo("
         <div class='w3-card-4 w3-margin w3-white'>
           <img src='$post->icon' alt='Nature' style='width:100%'>
           <div class='w3-container w3-padding-8'>
-            <h3><b>$post->title</b></h3>
+            <a href='/post/$post->id'><h3><b>$post->title</b></h3></a>
             <h5>$post->subtitle, <span class='w3-opacity'>$date</span></h5>
           </div>
 
@@ -122,6 +122,7 @@ and is wrapped around the whole page content, except for the footer in this exam
   <hr>
 
   <!-- Labels / tags -->
+  <!--
   <div class="w3-card-2 w3-margin">
     <div class="w3-container w3-padding">
       <h4>Tags - Dont work, placeholder</h4>
@@ -139,6 +140,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     </p>
     </div>
   </div>
+-->
 
 <!-- END Introduction Menu -->
 </div>

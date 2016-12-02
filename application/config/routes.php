@@ -56,6 +56,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['post_add'] = 'blog/post_add';
 // delete a post
 $route['post_delete/(:num)'] = 'blog/post_delete/$1';
+// edit a post
+$route['post_edit/(:num)'] = 'blog/post_edit/$1';
 // view a post and its comments
 $route['post/(:num)'] = 'blog/post_view/$1';
 // view a list of posts for a given project.

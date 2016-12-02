@@ -1,5 +1,6 @@
 <form method="post" enctype="multipart/form-data">
     <table>
+        <th colspan='2'>Add Post</th>
         <tr>
             <td><label for="title">Title</label></td>
             <td><input name="title" id="title" /></td>
