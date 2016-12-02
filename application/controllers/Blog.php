@@ -56,7 +56,7 @@ class Blog extends CI_Controller {
 		if(isset($_SESSION['username'])) {
 			$this->load->model("Model_MySQL", "mysql");
 			$this->mysql->post_delete($num);
-			header('Location: /me-profile/index.php');
+			header('Location: /');
 			exit();
 		}
 		else {
@@ -94,11 +94,10 @@ class Blog extends CI_Controller {
 	}
 
 	// AUTHENTICATE
-	public function authenticate() {
+	public function authenticate_login() {
 		if(isset($_POST['username']) && isset($_POST['password'])) {
 			$this->load->model('Model_MySQL', 'mysql');
 			$result = $this->mysql->user_login($_POST['username'], $_POST['password']);
-			var_dump($result);
 			if(empty($result))  {
 				$this->load->view('user_login', array('result' => "Username or Password is Incorrect"));
 				return;
@@ -106,11 +105,23 @@ class Blog extends CI_Controller {
 			else {
 				session_start();
 				$_SESSION['username'] = $_POST['username'];
-				header('Location: /me-profile/index.php');
+				header('Location: /');
 				exit();
 			}
 		}
 		$this->load->view('user_login');
+	}
+	
+	public function authenticate_logout() {
+		session_start();
+		session_destroy();
+		
+		header("Location: /");
+		exit();
+	}
+	
+	public function dashboard() {
+		$this->load->view('dashboard');
 	}
 
 	// delete the given comment number
@@ -119,7 +130,7 @@ class Blog extends CI_Controller {
 		if(!empty($_SESSION['username'])) {
 			$this->load->model("Model_MySQL", "mysql");
 			$this->mysql->comment_delete($num);
-			header('Location: /me-profile/index.php');
+			header('Location: /');
 			exit();
 		}
 		else {
@@ -133,7 +144,7 @@ class Blog extends CI_Controller {
 			$this->load->model("Model_MySQL", "mysql");
 			$this->mysql->comment_add($_POST['postid'], $_POST['name'], $_POST['email'], $_POST['website'], $_POST['content'], time());
 
-			header("Location: /me-profile/index.php/post/{$_POST['postid']}");
+			header("Location: post/{$_POST['postid']}");
 			exit();
 		}
 		$this->load->view('comment_add');

@@ -62,7 +62,10 @@ $route['post/(:num)'] = 'blog/post_view/$1';
 $route['project/(:num)'] = 'blog/get_project_posts/$1';
 
 // AUTHENTICATION
-$route['authenticate'] = 'blog/authenticate';
+$route['authenticate/login'] = 'blog/authenticate_login';
+$route['authenticate/logout'] = 'blog/authenticate_logout';
+
+$route['dashboard'] = 'blog/dashboard';
 
 // add a comment
 //$route['comment/comment_add'] = 'blog/comment_add';

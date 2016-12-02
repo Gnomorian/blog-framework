@@ -16,7 +16,7 @@ and is wrapped around the whole page content, except for the footer in this exam
 
 <!-- Header -->
 <header class="w3-container w3-center w3-padding-32">
-  <h1><b>William Cameron</b></h1>
+  <h1><a href="/"><b>William Cameron</b></a></h1>
   <p><?PHP echo($quote[0]->text);?><br>
     <span class="w3-tag">-<?PHP echo($quote[0]->person);?></span></p>
 </header>
@@ -145,10 +145,10 @@ and is wrapped around the whole page content, except for the footer in this exam
   <button class="w3-btn w3-padding-large w3-margin-bottom">Next &raquo;</button>
   <?php
   if(empty($user)) {
-    echo('<p><a href="/">Login</a></p>');
+    echo('<p><a href="/authenticate/login">Login</a></p>');
   }
   else {
-    echo("<p>Logged in as <a href='/'>$user</a></p>");
+    echo("<p>Logged in as <a href='/dashboard'>$user</a> <a href='/authenticate/logout'> - Logout</a></p>");
   }
   ?>
   <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
