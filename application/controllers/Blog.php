@@ -52,10 +52,16 @@ class Blog extends CI_Controller {
 
 	// delete the given post number and its comments
 	public function post_delete($num) {
-		$this->load->model("Model_MySQL", "mysql");
-		$this->mysql->post_delete($num);
-		header('Location: /me-profile/index.php');
-		exit();
+		session_start();
+		if(isset($_SESSION['username'])) {
+			$this->load->model("Model_MySQL", "mysql");
+			$this->mysql->post_delete($num);
+			header('Location: /me-profile/index.php');
+			exit();
+		}
+		else {
+			die("You are not a registered user");
+		}
 	}
 	// edit the given post number
 	public function post_edit($num) {
@@ -109,10 +115,16 @@ class Blog extends CI_Controller {
 
 	// delete the given comment number
 	public function comment_delete($num) {
-		$this->load->model("Model_MySQL", "mysql");
-		$this->mysql->comment_delete($num);
-		header('Location: /me-profile/index.php');
-		exit();
+		session_start();
+		if(!empty($_SESSION['username'])) {
+			$this->load->model("Model_MySQL", "mysql");
+			$this->mysql->comment_delete($num);
+			header('Location: /me-profile/index.php');
+			exit();
+		}
+		else {
+			die("Your not a registered User");
+		}
 	}
 
 	// add a new comment using given $_PUT
