@@ -9,7 +9,7 @@ class Model_MySQL extends CI_Model {
     parent::__construct();
   }
     // add a blog post
-  public function post_add($title, $body, $date, $subtitle, $project, $icon="image/post/default.jpg") {
+  public function post_add($title, $body, $date, $subtitle, $project, $icon="/image/post/default.jpg") {
     $data = array(
       'title' => $title,
       'body' => $body,
@@ -49,15 +49,20 @@ class Model_MySQL extends CI_Model {
     return;
   }
 
-  public function get_latest_posts() {
+  public function get_latest_posts($page=1) {
+
     $this->db->order_by('date', 'DESC');
-    $this->db->limit(3);
-    $query = $this->db->get('posts');
+    $query = $this->db->get('posts', 3, (($page-1) * 3 + 1));
     $result = $query->result();
     if(!empty($result)) {
       return $result;
     }
   }
+  // gets the amount of pages needed to view all posts
+  public function get_max_pages() {
+    return (ceil($this->db->count_all_results('posts') / 3));
+  }
+  
   // get all comments for this post
   public function get_comments($postid) {
     /*$query = $this->db->get_where('comments', array('post_id' => $postid));

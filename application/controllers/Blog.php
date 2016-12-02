@@ -20,10 +20,24 @@ class Blog extends CI_Controller {
 	 */
 	public function index() {
 		$this->load->model('Model_MySQL', 'mysql');
+		$page = 1;
+		$pages = array();
+		$maxpages = $this->mysql->get_max_pages();
+		
+		if(isset($_GET['page'])) {
+			$page = $_GET['page'];
+		}
+		// contains data to change the next, previous buttons on the homepage
+		if($page != $maxpages) {
+			$pages['next'] = $page + 1;
+		}
+		if($page != 1) {
+			$pages['previous'] = $page - 1;
+		}
 		// get list of latest posts
-		$posts = $this->mysql->get_latest_posts();
+		$posts = $this->mysql->get_latest_posts($page);
 
-		$this->generate_homepage($posts);
+		$this->generate_homepage($posts, $pages);
 
 	}
 
@@ -221,7 +235,7 @@ class Blog extends CI_Controller {
 		}
 	}
 
-	public function generate_homepage($posts) {
+	public function generate_homepage($posts, $pages=array('next' => '2')) {
 		$user = "";
 		session_start();
 		if(isset($_SESSION['username'])) {
@@ -238,7 +252,7 @@ class Blog extends CI_Controller {
 		if(!isset($quote)) {
 			die("No Quote!");
 		}
-		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote, 'user' => $user));
+		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote, 'user' => $user, 'pages' => $pages));
 	}
 
 }

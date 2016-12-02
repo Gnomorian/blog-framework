@@ -153,8 +153,14 @@ and is wrapped around the whole page content, except for the footer in this exam
 
 <!-- Footer -->
 <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
-  <button class="w3-btn w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
-  <button class="w3-btn w3-padding-large w3-margin-bottom">Next &raquo;</button>
+  <a href="<?php
+  if(isset($pages['previous']))
+    echo("/?page={$pages['previous']}"); 
+  ?>"><button class="w3-btn <?php if(!isset($pages['previous'])) echo('w3-disabled'); ?> w3-padding-large w3-margin-bottom">Previous</button></a>
+  <a href="<?php 
+  if(isset($pages['next']))
+    echo("/?page={$pages['next']}"); 
+  ?>"></a><button class="w3-btn <?php if(!isset($pages['next'])) echo('w3-disabled'); ?> w3-padding-large w3-margin-bottom">Next &raquo;</button></a>
   <?php
   if(empty($user)) {
     echo('<p><a href="/authenticate/login">Login</a></p>');
