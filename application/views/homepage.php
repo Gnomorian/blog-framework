@@ -31,11 +31,27 @@ and is wrapped around the whole page content, except for the footer in this exam
     // Blank string by default as most people wont be logged in, only expends effort to change it if you are logged in.
     foreach ($posts as $post) {
       $date = date('F j<\s\up>S</\s\up>, Y', $post->date);
+      $commentstructure = "";
       $deletePost = "";
       $editPost = "";
       if(!empty($user)) {
         $deletePost = "<a href='/post_delete/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Post</b></button></a>";
         $editPost = "<a href='/post_edit/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Edit Post</b></button></a>";
+      }
+      if(!empty($comments)) {
+        foreach($comments as $comment) {
+          if($comment->post_id != $post->id)
+            continue;
+          $commentstructure = $commentstructure . 
+          "<div class='w3-card-4 w3-margin w3-white'>
+                <div class='w3-container w3-padding-8'>
+                  <h5>$comment->date, <span class='w3-opacity'>$comment->date</span></h5>
+                </div>
+                <div class='w3-container'>
+                  <p>$comment->content</p>
+                </div>
+              </div>";
+        }
       }
       echo("
         <div class='w3-card-4 w3-margin w3-white'>
@@ -58,6 +74,12 @@ and is wrapped around the whole page content, except for the footer in this exam
                 <p><span class='w3-padding-large w3-right'><b>Comments &nbsp;</b> <span class='w3-tag'>$post->num_comments  </span></span></p>
               </div>
             </div>
+            
+            <div>
+              $commentstructure
+            </div>
+            
+            
           </div>
         </div>
         <hr>
