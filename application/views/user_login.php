@@ -19,5 +19,9 @@ if(!empty($result)) {
           <td></td>
           <td><input type="submit" value="Login" /></td>
       </tr>
+      <tr>
+            <td></td>
+            <td><a href="/">Homepage</a></td>
+        </tr>
   </table>
 </form>

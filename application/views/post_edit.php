@@ -38,5 +38,9 @@
             <td></td>
             <td><input type="submit" value="Edit" /></td>
         </tr>
+        <tr>
+            <td></td>
+            <td><a href="/">Homepage</a></td>
+        </tr>
     </table>
 </form>

@@ -33,5 +33,9 @@
             <td></td>
             <td><input type="submit" value="Post" /></td>
         </tr>
+        <tr>
+            <td></td>
+            <td><a href="/">Homepage</a></td>
+        </tr>
     </table>
 </form>
