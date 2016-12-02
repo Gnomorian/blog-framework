@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2016 at 11:57 AM
+-- Generation Time: Dec 02, 2016 at 05:09 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -58,7 +58,8 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `body`, `num_comments`, `date`, `project_id`, `icon`, `subtitle`) VALUES
-(8, 'First Post', 'this is a big step, it has come far from just a template and an idea, now i can upload "posts" to this beta blog/portfolio and upload an image to go along with it.', 0, 1480578805, 0, 'image/post/Boston City Flow.jpg', 'got post_add working');
+(8, 'First Post', 'this is a big step, it has come far from just a template and an idea, now i can upload "posts" to this beta blog/portfolio and upload an image to go along with it.', 0, 1480578805, 0, 'image/post/Boston City Flow.jpg', 'got post_add working'),
+(11, '3D Printer', 'I recieved the prints from the guy in Iilam on Wednesday, there where bits of plastic stuck in holes where it shouldn\'t be which i managed to remove, but otherwise they look great so i gave <a href=\'https://www.3dhubs.com/christchurch/hubs/printsdirect2u\'>him</a> a shining review.\r\n<br>\r\nI ordered the Raspberry PI A+ on the same day, Element14 is out of stock, they are getting more in on 26th December, so i have a while to wait for that, so this project isn\'t in a rush due to that delay which means i will order the rest of the parts next week from Atafruit as to save my bank account due to it being the most expensive part at $200.', 0, 1480640252, 1, 'image/post/IMG_20161130_202819.jpg', 'recieved parts');
 
 -- --------------------------------------------------------
 
@@ -109,6 +110,26 @@ INSERT INTO `quotes` (`id`, `text`, `person`) VALUES
 (3, 'Imperfection is beauty, madness is genius and it’s better to be absolutely ridiculous than absolutely boring.', 'Marilyn Monroe'),
 (4, 'Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.', 'Martin Golding');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'login username',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'email address',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+(1, 'william', 'gnomorian@gmail.com', '15D927215EFF4373BE63C5FD04F26BB0');
+
 --
 -- Indexes for dumped tables
 --
@@ -138,6 +159,12 @@ ALTER TABLE `quotes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -150,7 +177,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `projects`
 --
@@ -161,6 +188,11 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `quotes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

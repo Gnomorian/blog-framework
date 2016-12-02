@@ -140,7 +140,7 @@ class Blog extends CI_Controller {
 	}
 
 	public function upload_file() {
-		$target_dir = "image/post/";
+		$target_dir = "/image/post/";
 		$target_file = $target_dir . basename($_FILES["icon"]["name"]);
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);

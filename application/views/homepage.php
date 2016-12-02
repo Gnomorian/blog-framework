@@ -2,7 +2,7 @@
 <html>
 <title>Portfolio - William Cameron</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/me-profile/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
@@ -34,7 +34,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       $deletePost = "";
       $editPost = "";
       if(!empty($user)) {
-        $deletePost = "<a href='/me-profile/index.php/post_delete/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Post</b></button></a>";
+        $deletePost = "<a href='/post_delete/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Post</b></button></a>";
         $editPost = "<button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Edit Post</b></button>";
       }
       echo("
@@ -71,7 +71,7 @@ and is wrapped around the whole page content, except for the footer in this exam
 <div class="w3-col l4">
   <!-- About Card -->
   <div class="w3-card-2 w3-margin w3-margin-top">
-  <img src="/me-profile/image/profile.jpg" style="width:100%">
+  <img src="/image/profile.jpg" style="width:100%">
     <div class="w3-container w3-white">
       <h4><b>William Cameron</b></h4>
       <p>Hi, I'm Wil. I am a mostly self taught programmer. I like learning new
@@ -98,7 +98,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       if(isset($projects) && !empty($projects)) {
         foreach ($projects as $project) {
           echo("
-          <a onclick='return confirm('Are you sure you want to Delete this post?');' href='http://localhost/me-profile/index.php/project/$project->id'><li class='w3-padding-16'>
+          <a onclick='return confirm('Are you sure you want to Delete this post?');' href='/project/$project->id'><li class='w3-padding-16'>
             <img src='$project->icon' alt='Image' class='w3-left w3-margin-right' style='width:50px'>
             <span class='w3-large'>$project->title</span><br>
             <span>$project->description</span>
@@ -145,10 +145,10 @@ and is wrapped around the whole page content, except for the footer in this exam
   <button class="w3-btn w3-padding-large w3-margin-bottom">Next &raquo;</button>
   <?php
   if(empty($user)) {
-    echo('<p><a href="/me-profile/index.php">Login</a></p>');
+    echo('<p><a href="/">Login</a></p>');
   }
   else {
-    echo("<p>Logged in as <a href='/me-profile/index.php'>$user</a></p>");
+    echo("<p>Logged in as <a href='/'>$user</a></p>");
   }
   ?>
   <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
