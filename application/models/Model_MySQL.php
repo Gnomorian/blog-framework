@@ -62,46 +62,22 @@ class Model_MySQL extends CI_Model {
   public function get_max_pages() {
     return (ceil($this->db->count_all_results('posts') / 3));
   }
-  
-  // get all comments for this post
-  public function get_comments($postid) {
-    /*$query = $this->db->get_where('comments', array('post_id' => $postid));
-    $query->order_by("date", "DESC");*/
-    //$result = $query->result();
-    if(!empty($result)) {
-      return $result;
-    }
-    return;
-  }
-    // add a comment
-  public function comment_add($postid, $name, $email, $website, $content, $date) {
-    $data = array(
-      'post_id' => $postid,
-      'name' => $name,
-      'email' => $email,
-      'website' => $website,
-      'content' => $content,
-      'date' => $postid,
-    );
-    $this->db->insert('comments', $data);
-  }
-    // remove a comment
-  public function comment_delete($id) {
-    $this->db->delete('comments', array('id' => $id));
-  }
-    // get a list of all projects and info about them.
-  public function get_projects() {
-    $query = $this->db->get('projects');
-    return $query->result();
-  }
 
-  public function project_posts($id) {
-    $query = $this->db->get_where('posts', array('project_id' => $id));
+  public function project_posts($id, $page=1) {
+    $this->db->where('project_id', $id);
+    $this->db->order_by('date', 'DESC');
+    $query = $this->db->get('posts', 3, (($page-1) * 3 + 1));
     $result = $query->result();
     if(!empty($result)) {
       return $result;
     }
     return;
+  }
+  
+     // get a list of all projects and info about them.
+  public function get_projects() {
+    $query = $this->db->get('projects');
+    return $query->result();
   }
 
   // QUOTES

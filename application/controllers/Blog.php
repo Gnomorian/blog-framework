@@ -29,10 +29,10 @@ class Blog extends CI_Controller {
 		}
 		// contains data to change the next, previous buttons on the homepage
 		if($page != $maxpages) {
-			$pages['next'] = $page + 1;
+			$pages['next'] = "?page=" . ($page + 1);
 		}
 		if($page != 1) {
-			$pages['previous'] = $page - 1;
+			$pages['previous'] = "?page=" . ($page - 1);
 		}
 		// get list of latest posts
 		$posts = $this->mysql->get_latest_posts($page);
@@ -118,10 +118,26 @@ class Blog extends CI_Controller {
 	// homepage view with all posts for the given project $id=project id
 	public function get_project_posts($id) {
 		$this->load->model('Model_MySQL', 'mysql');
+		
+		$page = 1;
+		$pages = array();
+		$maxpages = $this->mysql->get_max_pages();
+		
+		if(isset($_GET['page'])) {
+			$page = $_GET['page'];
+		}
+		// contains data to change the next, previous buttons on the homepage
+		if($page != $maxpages) {
+			$pages['next'] = "/project/$id?page=" . ($page + 1);
+		}
+		if($page != 1) {
+			$pages['previous'] = "/project/$id?page=" . ($page - 1);
+		}
+		
 		// get the post user wants to view
 		$posts = $this->mysql->project_posts($id);
 
-		$this->generate_homepage($posts);
+		$this->generate_homepage($posts, $pages);
 	}
 
 	// view the given post number and its comments
@@ -164,32 +180,6 @@ class Blog extends CI_Controller {
 	
 	public function dashboard() {
 		$this->load->view('dashboard');
-	}
-
-	// delete the given comment number
-	public function comment_delete($num) {
-		session_start();
-		if(!empty($_SESSION['username'])) {
-			$this->load->model("Model_MySQL", "mysql");
-			$this->mysql->comment_delete($num);
-			header('Location: /');
-			exit();
-		}
-		else {
-			die("Your not a registered User");
-		}
-	}
-
-	// add a new comment using given $_PUT
-	public function comment_add() {
-		if(!empty($_GET)) {
-			$this->load->model("Model_MySQL", "mysql");
-			$this->mysql->comment_add($_POST['postid'], $_POST['name'], $_POST['email'], $_POST['website'], $_POST['content'], time());
-
-			header("Location: post/{$_POST['postid']}");
-			exit();
-		}
-		$this->load->view('comment_add');
 	}
 
 	public function upload_file() {

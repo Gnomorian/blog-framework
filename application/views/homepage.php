@@ -39,7 +39,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       }
       echo("
         <div class='w3-card-4 w3-margin w3-white'>
-          <img src='$post->icon' alt='Nature' style='width:100%'>
+          <img src='$post->icon' alt='$post->icon' style='width:100%'>
           <div class='w3-container w3-padding-8'>
             <a href='/post/$post->id'><h3><b>$post->title</b></h3></a>
             <h5>$post->subtitle, <span class='w3-opacity'>$date</span></h5>
@@ -153,14 +153,8 @@ and is wrapped around the whole page content, except for the footer in this exam
 
 <!-- Footer -->
 <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
-  <a href="<?php
-  if(isset($pages['previous']))
-    echo("/?page={$pages['previous']}"); 
-  ?>"><button class="w3-btn <?php if(!isset($pages['previous'])) echo('w3-disabled'); ?> w3-padding-large w3-margin-bottom">Previous</button></a>
-  <a href="<?php 
-  if(isset($pages['next']))
-    echo("/?page={$pages['next']}"); 
-  ?>"></a><button class="w3-btn <?php if(!isset($pages['next'])) echo('w3-disabled'); ?> w3-padding-large w3-margin-bottom">Next &raquo;</button></a>
+  <a href="<?php if(isset($pages['previous'])) echo($pages['previous']); ?>"><button class="w3-btn <?php if(!isset($pages['previous'])) echo('w3-disabled'); ?> w3-padding-large w3-margin-bottom">Previous</button></a>
+  <a href="<?php if(isset($pages['next'])) echo($pages['next']); ?>"><button class="w3-btn <?php if(!isset($pages['next'])) echo('w3-disabled'); ?> w3-padding-large w3-margin-bottom">Next &raquo;</button></a>
   <?php
   if(empty($user)) {
     echo('<p><a href="/authenticate/login">Login</a></p>');
