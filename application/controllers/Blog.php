@@ -94,7 +94,7 @@ class Blog extends CI_Controller {
 			$reforms = array(
 				'title'=> $_POST['title'],
 				'body'=> $_POST['body'],
-				'subtitle'=> $_POST['title'],
+				'subtitle'=> $_POST['subtitle'],
 				'project_id'=> $this->mysql->get_project_id($_POST['projectid']),
 				);
 			//if there is an image
@@ -102,7 +102,8 @@ class Blog extends CI_Controller {
 				$reforms['icon'] = '/image/post/' . basename($_FILES["icon"]["name"]);
 			}
 			$this->mysql->post_edit($num, $reforms);
-			echo("<br>Post Updated!<br>");
+			header("Location: /post/$num");
+			exit();
 		}
 		
 		// GENERATE PAGE
