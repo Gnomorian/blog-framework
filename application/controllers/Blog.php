@@ -87,6 +87,26 @@ class Blog extends CI_Controller {
 
 	}
 
+	// AUTHENTICATE
+	public function authenticate() {
+		if(isset($_POST['username']) && isset($_POST['password'])) {
+			$this->load->model('Model_MySQL', 'mysql');
+			$result = $this->mysql->user_login($_POST['username'], $_POST['password']);
+			var_dump($result);
+			if(empty($result))  {
+				$this->load->view('user_login', array('result' => "Username or Password is Incorrect"));
+				return;
+			}
+			else {
+				session_start();
+				$_SESSION['username'] = $_POST['username'];
+				header('Location: /me-profile/index.php');
+				exit();
+			}
+		}
+		$this->load->view('user_login');
+	}
+
 	// delete the given comment number
 	public function comment_delete($num) {
 		$this->load->model("Model_MySQL", "mysql");
@@ -152,6 +172,11 @@ class Blog extends CI_Controller {
 	}
 
 	public function generate_homepage($posts) {
+		$user = "";
+		session_start();
+		if(isset($_SESSION['username'])) {
+			$user = $_SESSION['username'];
+		}
 		// get list of projects
 		$projects = $this->mysql->get_projects();
 		if(!isset($projects)) {
@@ -163,7 +188,7 @@ class Blog extends CI_Controller {
 		if(!isset($quote)) {
 			die("No Quote!");
 		}
-		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote));
+		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote, 'user' => $user));
 	}
 
 }

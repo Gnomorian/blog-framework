@@ -27,9 +27,16 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Blog entries -->
 <div class="w3-col l8 s12">
 <?php
-  if(isset($posts) && !empty($posts)) {
+  if(!empty($posts)) {
+    // Blank string by default as most people wont be logged in, only expends effort to change it if you are logged in.
     foreach ($posts as $post) {
       $date = date('F j<\s\up>S</\s\up>, Y', $post->date);
+      $deletePost = "";
+      $editPost = "";
+      if(!empty($user)) {
+        $deletePost = "<a href='/me-profile/index.php/post_delete/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Post</b></button></a>";
+        $editPost = "<button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Edit Post</b></button>";
+      }
       echo("
         <div class='w3-card-4 w3-margin w3-white'>
           <img src='$post->icon' alt='Nature' style='width:100%'>
@@ -42,7 +49,10 @@ and is wrapped around the whole page content, except for the footer in this exam
             <p>$post->body</p>
             <div class='w3-row'>
               <div class='w3-col m8 s12'>
-                <p><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>READ MORE &raquo;</b></button></p>
+                <p><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>READ COMMENTS &raquo;</b></button>
+                $deletePost
+                $editPost
+                </p>
               </div>
               <div class='w3-col m4 w3-hide-small'>
                 <p><span class='w3-padding-large w3-right'><b>Comments &nbsp;</b> <span class='w3-tag'>$post->num_comments  </span></span></p>
@@ -88,7 +98,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       if(isset($projects) && !empty($projects)) {
         foreach ($projects as $project) {
           echo("
-          <a href='http://localhost/me-profile/index.php/project/$project->id'><li class='w3-padding-16'>
+          <a onclick='return confirm('Are you sure you want to Delete this post?');' href='http://localhost/me-profile/index.php/project/$project->id'><li class='w3-padding-16'>
             <img src='$project->icon' alt='Image' class='w3-left w3-margin-right' style='width:50px'>
             <span class='w3-large'>$project->title</span><br>
             <span>$project->description</span>
@@ -133,6 +143,14 @@ and is wrapped around the whole page content, except for the footer in this exam
 <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
   <button class="w3-btn w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
   <button class="w3-btn w3-padding-large w3-margin-bottom">Next &raquo;</button>
+  <?php
+  if(empty($user)) {
+    echo('<p><a href="/me-profile/index.php">Login</a></p>');
+  }
+  else {
+    echo("<p>Logged in as <a href='/me-profile/index.php'>$user</a></p>");
+  }
+  ?>
   <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>
 

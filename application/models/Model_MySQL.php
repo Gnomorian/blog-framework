@@ -105,4 +105,16 @@ class Model_MySQL extends CI_Model {
     }
     return;
   }
+
+  // AUTHENTICATION
+  public function user_login($username, $password) {
+    $this->db->where('name', $username);
+    $this->db->where('password', md5($password));
+    $this->db->select(array('id', 'name', 'email'));
+    $query = $this->db->get('users', 1);
+    $result = $query->result();
+    if(isset($result)) {
+      return $result;
+    }
+  }
 }
