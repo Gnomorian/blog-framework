@@ -9,15 +9,24 @@ class Model_MySQL extends CI_Model {
     parent::__construct();
   }
     // add a blog post
-  public function post_add($title, $body, $date, $subtitle, $icon="image/post/default.jpg") {
+  public function post_add($title, $body, $date, $subtitle, $project, $icon="image/post/default.jpg") {
     $data = array(
       'title' => $title,
       'body' => $body,
       'date' => $date,
       'subtitle' => $subtitle,
-      'icon' => $icon
+      'icon' => $icon,
+      'project_id' => $this->get_project_id($project)
     );
     $this->db->insert('posts', $data);
+  }
+  // get the id of the project from its display name
+  public function get_project_id($project) {
+    $this->db->where('title', $project);
+    $this->db->limit(1);
+    $query = $this->db->get('projects');
+    $result = $query->result();
+    return (int)$result[0]->id;
   }
     // delete a blog post
   public function post_delete($id) {
@@ -82,7 +91,7 @@ class Model_MySQL extends CI_Model {
     $query = $this->db->get_where('posts', array('project_id' => $id));
     $result = $query->result();
     if(!empty($result)) {
-      return $result[0];
+      return $result;
     }
     return;
   }

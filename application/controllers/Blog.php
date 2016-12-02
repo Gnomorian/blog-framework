@@ -38,10 +38,10 @@ class Blog extends CI_Controller {
 		if(!empty($_POST)) {
 			//if there is an image
 			if($this->upload_file() == 1) {
-				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], 'image/post/' . basename($_FILES["icon"]["name"]));
+				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], $_POST['projectid'], 'image/post/' . basename($_FILES["icon"]["name"]));
 			}
 			else {
-				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle']);
+				$this->mysql->post_add($_POST['title'], $_POST['body'], time(), $_POST['subtitle'], $_POST['projectid']);
 			}
 		}
 		// get list of projects
@@ -66,7 +66,7 @@ class Blog extends CI_Controller {
 		$this->load->model('Model_MySQL', 'mysql');
 		// get the post user wants to view
 		$posts = $this->mysql->project_posts($id);
-		if(!isset($post)) {
+		if(!isset($posts)) {
 			echo("Project $id has no Posts.");
 		}
 
@@ -128,7 +128,7 @@ class Blog extends CI_Controller {
 		    $uploadOk = 0;
 		}
 		// Check file size
-		if ($_FILES["icon"]["size"] > 500000) {
+		if ($_FILES["icon"]["size"] > 2000000) {
 		    echo "Sorry, your file is too large.";
 		    $uploadOk = 0;
 		}
