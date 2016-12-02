@@ -64,6 +64,16 @@ and is wrapped around the whole page content, except for the footer in this exam
       ");
     }
   }
+  else {
+    echo("
+        <div class='w3-card-4 w3-margin w3-white'>
+          <div class='w3-container w3-padding-8'>
+            <h3><b>There are no Posts here.</b></h3>
+          </div>
+        </div>
+        <hr>
+      ");
+  }
 ?>
 </div>
 

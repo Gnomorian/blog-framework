@@ -22,9 +22,6 @@ class Blog extends CI_Controller {
 		$this->load->model('Model_MySQL', 'mysql');
 		// get list of latest posts
 		$posts = $this->mysql->get_latest_posts();
-		if(!isset($posts)) {
-			die("No Posts!");
-		}
 
 		$this->generate_homepage($posts);
 
@@ -72,9 +69,6 @@ class Blog extends CI_Controller {
 		$this->load->model('Model_MySQL', 'mysql');
 		// get the post user wants to view
 		$posts = $this->mysql->project_posts($id);
-		if(!isset($posts)) {
-			echo("Project $id has no Posts.");
-		}
 
 		$this->generate_homepage($posts);
 	}
@@ -84,9 +78,6 @@ class Blog extends CI_Controller {
 		$this->load->model('Model_MySQL', 'mysql');
 		// get the post user wants to view
 		$post = $this->mysql->post_view($num);
-		if(!isset($post)) {
-			echo("No Post with ID: $num");
-		}
 
 		$this->generate_homepage(array($post));
 
