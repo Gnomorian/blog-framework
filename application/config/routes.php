@@ -70,7 +70,9 @@ $route['authenticate/logout'] = 'blog/authenticate_logout';
 $route['dashboard'] = 'blog/dashboard';
 
 // add a comment
-//$route['comment/comment_add'] = 'blog/comment_add';
+$route['comment_add/(:num)'] = 'blog/comment_add/$1';
+// delete a comment
+$route['comment_delete/(:num)'] = 'blog/comment_delete/$1';
 
 // delete a comment
 //$route['comment/comment_delete/(:num)'] = 'blog/comment_delete/$1';

@@ -30,7 +30,11 @@ class Model_MySQL extends CI_Model {
   }
     // delete a blog post
   public function post_delete($id) {
+    // delete post
     $this->db->delete('posts', array('id' => $id));
+    // delete comments
+    $this->db->where('post_id', $id);
+    $query = $this->db->delete('comments');
   }
     // $reforms is array('title', 'body', 'date'),
     // if thoes fields exist in the
@@ -72,6 +76,24 @@ class Model_MySQL extends CI_Model {
       return $result;
     }
     return;
+  }
+  // add a comment to a post
+  public function comment_add($postid, $data) {
+    return $result = $this->db->insert('comments', $data);
+  }
+  
+  public function comment_get($postid) {
+    $this->db->where('post_id', $postid);
+    $query = $this->db->get('comments');
+    $result = $query->result();
+    if(!empty($result)) {
+      return $result;
+    }
+  }
+  
+    // delete a blog post
+  public function comment_delete($id) {
+    $this->db->delete('comments', array('id' => $id));
   }
   
      // get a list of all projects and info about them.

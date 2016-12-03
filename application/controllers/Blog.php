@@ -225,9 +225,11 @@ class Blog extends CI_Controller {
 		    }
 		}
 	}
-
+	// generate html for the homepage
 	public function generate_homepage($posts, $pages=array('next' => '2')) {
 		$user = "";
+		$comments = array();
+		// check if the user is logged in or not
 		session_start();
 		if(isset($_SESSION['username'])) {
 			$user = $_SESSION['username'];
@@ -243,7 +245,51 @@ class Blog extends CI_Controller {
 		if(!isset($quote)) {
 			die("No Quote!");
 		}
-		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote, 'user' => $user, 'pages' => $pages));
+		// get all comments for posts being shown
+		foreach($posts as $post) {
+			$postcomments = $this->mysql->comment_get($post->id);
+			if(!empty($postcomments)) {
+				$comments = array_merge($comments, $postcomments);
+			}
+			
+		}
+		// display the page
+		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote, 'user' => $user, 'pages' => $pages, 'comments' => $comments));
 	}
 
+	public function comment_add($postid) {
+		$fields;
+		if(isset($_POST['name']) && isset($_POST['content'])) {
+			$fields = array(
+					'post_id' => $postid,
+					'name' => $_POST['name'],
+					'email' => $_POST['email'],
+					'content' => $_POST['content'],
+					'date' => time(),
+				);
+			$this->load->model('Model_MySQL', 'mysql');
+			$result = $this->mysql->comment_add($postid, $fields);
+			// if sucessful redirec to the post
+			if($result) {
+				header("Location: /post/$postid");
+				exit();
+			}
+		}
+		$this->load->view('comment_add');
+	}
+	// delete the given comment
+	public function comment_delete($num) {
+		session_start();
+		if(!isset($_SESSION['username'])) {
+			die("You are not a registered user");
+			
+		}
+		else {
+			$this->load->model("Model_MySQL", "mysql");
+			$this->mysql->comment_delete($num);
+			header('Location: /');
+			exit();
+		}
+	}
+	
 }

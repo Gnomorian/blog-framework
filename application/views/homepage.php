@@ -34,22 +34,28 @@ and is wrapped around the whole page content, except for the footer in this exam
       $commentstructure = "";
       $deletePost = "";
       $editPost = "";
+      $deleteComment = "";
       if(!empty($user)) {
         $deletePost = "<a href='/post_delete/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Post</b></button></a>";
         $editPost = "<a href='/post_edit/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Edit Post</b></button></a>";
       }
       if(!empty($comments)) {
         foreach($comments as $comment) {
+          if(!empty($user)) {
+            $deleteComment = "<a href='/comment_delete/$comment->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Delete Comment</b></button></a>";
+          }
           if($comment->post_id != $post->id)
             continue;
+            $commentdate = date('F j<\s\up>S</\s\up>, Y', $comment->date);
           $commentstructure = $commentstructure . 
           "<div class='w3-card-4 w3-margin w3-white'>
                 <div class='w3-container w3-padding-8'>
-                  <h5>$comment->date, <span class='w3-opacity'>$comment->date</span></h5>
+                  <h5>$comment->name <span class='w3-opacity' style='float: right'>$commentdate</span></h5>
                 </div>
                 <div class='w3-container'>
                   <p>$comment->content</p>
                 </div>
+                $deleteComment
               </div>";
         }
       }
@@ -65,7 +71,7 @@ and is wrapped around the whole page content, except for the footer in this exam
             <p>$post->body</p>
             <div class='w3-row'>
               <div class='w3-col m8 s12'>
-                <p><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>READ COMMENTS &raquo;</b></button>
+                <p><a href='/comment_add/$post->id'><button class='w3-btn w3-padding-large w3-white w3-border w3-hover-border-black'><b>Add Comment &raquo;</b></button></a>
                 $deletePost
                 $editPost
                 </p>
