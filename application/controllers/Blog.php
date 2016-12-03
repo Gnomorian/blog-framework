@@ -183,6 +183,7 @@ class Blog extends CI_Controller {
 	}
 
 	public function upload_file() {
+		var_dump($_FILES);
 		$target_dir = "/image/post/";
 		$target_file = $target_dir . basename($_FILES["icon"]["name"]);
 		$uploadOk = 1;

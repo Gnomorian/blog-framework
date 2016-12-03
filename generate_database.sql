@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2016 at 12:34 PM
+-- Generation Time: Dec 03, 2016 at 02:10 AM
 -- Server version: 5.5.53-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.20
 
@@ -31,11 +31,10 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `post_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
   `date` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -53,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '/image/post/default.jpg' COMMENT 'string to the image on the post',
   `subtitle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `posts`
@@ -62,7 +61,8 @@ CREATE TABLE IF NOT EXISTS `posts` (
 INSERT INTO `posts` (`id`, `title`, `body`, `num_comments`, `date`, `project_id`, `icon`, `subtitle`) VALUES
 (8, 'First Post', 'this is a big step, it has come far from just a template and an idea, now i can upload "posts" to this beta blog/portfolio and upload an image to go along with it.', 0, 1480578805, 5, '/image/post/Boston City Flow.jpg', 'got post_add working'),
 (11, '3D Printer', 'I recieved the prints from the guy in Iilam on Wednesday, there where bits of plastic stuck in holes where it shouldn''t be which i managed to remove, but otherwise they look great so i gave <a href=''https://www.3dhubs.com/christchurch/hubs/printsdirect2u''>him</a> a shining review.\r\n<br>\r\nI ordered the Raspberry PI A+ on the same day, Element14 is out of stock, they are getting more in on 26th December, so i have a while to wait for that, so this project isn''t in a rush due to that delay which means i will order the rest of the parts next week from Atafruit as to save my bank account due to it being the most expensive part at $200.', 0, 1480640252, 1, '/image/post/IMG_20161130_202819.jpg', 'recieved parts'),
-(31, 'i only exist to make up the numbers', '', 0, 1480678710, 1, '/image/post/default.jpg', '');
+(33, 'Day 4', 'I have been working on this blog for 4 days now, pretty much all the essential features work apart from comments, they don''t exist, which is a bit of a problem. i will work on it later, it is 2 am now.\r\n<br>\r\ni am quite happy with how the site is going, adding comment i would imagine would be quite slow as i didn''t design the template, so i will have to make the html myself with this unfamiliar CSS framework. after that everything that a normal user can see will be done to a working degree. pages like post_add, post_edit will need a touch up as no css is involved at all\r\n<br>\r\ni also wonder if people who dont know the site will be able to navigate it properly, the home page button is an <a> hidden behind the title of the page. im not sure that is good enough for someone else to find, will have to test it on people.\r\n', 0, 1480683242, 5, '/image/post/default.jpg', 'everything works, sortof'),
+(32, 'Day 4', 'I have been working on this blog for 4 days now, pretty much all the essential features work apart from comments, they don''t exist, which is a bit of a problem. i will work on it later, it is 2 am now.\r\n<br>\r\ni am quite happy with how the site is going, adding comment i would imagine would be quite slow as i didn''t design the template, so i will have to make the html myself with this unfamiliar CSS framework. after that everything that a normal user can see will be done to a working degree. pages like post_add, post_edit will need a touch up as no css is involved at all\r\n<br>\r\ni also wonder if people who dont know the site will be able to navigate it properly, the home page button is an <a> hidden behind the title of the page. im not sure that is good enough for someone else to find, will have to test it on people.\r\n', 0, 1480683187, 5, '/image/post/fec4gc4sebh.png', 'everything works, sortof');
 
 -- --------------------------------------------------------
 
