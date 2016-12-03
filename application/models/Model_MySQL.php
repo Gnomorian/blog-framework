@@ -56,26 +56,29 @@ class Model_MySQL extends CI_Model {
   public function get_latest_posts($page=1) {
 
     $this->db->order_by('date', 'DESC');
-    $query = $this->db->get('posts', 3, (($page-1) * 3 + 1));
+    $query = $this->db->get('posts', 3, (($page-1) * 3));
     $result = $query->result();
     if(!empty($result)) {
       return $result;
     }
   }
   // gets the amount of pages needed to view all posts
-  public function get_max_pages() {
+  public function get_max_pages($project = 0) {
+    if ($project != 0)
+      $this->db->where('project_id', $project);
+      
     return (ceil($this->db->count_all_results('posts') / 3));
   }
 
-  public function project_posts($id, $page=1) {
+  public function project_posts($id, $page) {
+    echo("Project ID: $id, Page Number: $page");
     $this->db->where('project_id', $id);
     $this->db->order_by('date', 'DESC');
-    $query = $this->db->get('posts', 3, (($page-1) * 3 + 1));
+    $query = $this->db->get('posts', 3, (($page-1) * 3));
     $result = $query->result();
     if(!empty($result)) {
       return $result;
     }
-    return;
   }
   // add a comment to a post
   public function comment_add($postid, $data) {

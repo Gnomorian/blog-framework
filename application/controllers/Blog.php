@@ -121,7 +121,7 @@ class Blog extends CI_Controller {
 		
 		$page = 1;
 		$pages = array();
-		$maxpages = $this->mysql->get_max_pages();
+		$maxpages = $this->mysql->get_max_pages($id);
 		
 		if(isset($_GET['page'])) {
 			$page = $_GET['page'];
@@ -135,7 +135,7 @@ class Blog extends CI_Controller {
 		}
 		
 		// get the post user wants to view
-		$posts = $this->mysql->project_posts($id);
+		$posts = $this->mysql->project_posts($id, $page);
 
 		$this->generate_homepage($posts, $pages);
 	}
@@ -247,12 +247,14 @@ class Blog extends CI_Controller {
 			die("No Quote!");
 		}
 		// get all comments for posts being shown
-		foreach($posts as $post) {
-			$postcomments = $this->mysql->comment_get($post->id);
-			if(!empty($postcomments)) {
-				$comments = array_merge($comments, $postcomments);
+		if(!empty($posts)) {
+			foreach($posts as $post) {
+				$postcomments = $this->mysql->comment_get($post->id);
+				if(!empty($postcomments)) {
+					$comments = array_merge($comments, $postcomments);
+				}
+				
 			}
-			
 		}
 		// display the page
 		$this->load->view('homepage', array('projects' => $projects, 'posts' => $posts, 'quote' => $quote, 'user' => $user, 'pages' => $pages, 'comments' => $comments));
