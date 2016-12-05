@@ -191,7 +191,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     echo("<p>Logged in as <a href='/dashboard'>$user</a> <a href='/authenticate/logout'> - Logout</a></p>");
   }
   ?>
-  <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </div><p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a><a style="float:right" href="https://github.com/Gnomorian/me-profile" target="_blank">Source Code on GitHub developed by William Cameron</a></p>
 </footer>
 
 </body>
