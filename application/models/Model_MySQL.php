@@ -71,7 +71,6 @@ class Model_MySQL extends CI_Model {
   }
 
   public function project_posts($id, $page) {
-    echo("Project ID: $id, Page Number: $page");
     $this->db->where('project_id', $id);
     $this->db->order_by('date', 'DESC');
     $query = $this->db->get('posts', 3, (($page-1) * 3));
